@@ -1,0 +1,40 @@
+---
+title: "Chicago_Map_HBH"
+output: html_document
+date: "2022-10-07"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("sf")
+library("ggplot2")
+library ("plotly")
+library ("dplyr")
+```
+
+```{r mapsetup, echo=FALSE}
+# ward boundaries from chicago data portal
+chicago_map <- read_sf("ward_boundaries.geojson")
+
+# latitude and longitude of HBH sites
+hbh_data <- read.csv("hbh_locations.csv")
+hbh_df <- data.frame(hbh_data)
+
+# amend data frame to classify each column
+hbh_df$Lat <- as.numeric(hbh_df$Lat)
+hbh_df$Long <- as.numeric(hbh_df$Long)
+hbh_df$Site <- as.character(hbh_df$Site)
+
+# amend data frame to include name of each site
+hbh_df <- hbh_df %>% mutate(desc = paste(`Site`, sep = "\n"))
+```
+
+
+```{r site info, echo=FALSE, warning=FALSE}
+site_info <- ggplot() +
+  geom_sf(data = chicago_map, fill = "ivory", colour = "ivory") + 
+  geom_point (data = hbh_df, aes(x = Long, y = Lat, text = desc))
+
+ggplotly(site_info, tooltip = "desc")
+
+```
