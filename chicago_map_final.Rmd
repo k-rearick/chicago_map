@@ -8,6 +8,8 @@ date: "2022-10-07"
 knitr::opts_chunk$set(echo = TRUE)
 library("sf")
 library("ggplot2")
+library ("plotly")
+library ("dplyr")
 ```
 
 ## R Markdown
@@ -17,8 +19,8 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r mapsetup}
-chicago_map <- read_sf(ward_boundaries.geojson)
-ggplot(data = chicago+map) + geom_sf()
+chicago_map <- read_sf("ward_boundaries.geojson")
+ggplot(data = chicago_map) + geom_sf()
 hbh_data <- read.csv("hbh_locations.csv")
 hbh_df <- data.frame(hbh_data)
 hbh_df$Lat <- as.numeric(hbh_df$Lat)
@@ -30,8 +32,19 @@ hbh_df$Site <- as.character(hbh_df$Site)
 
 You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r hbh mapping}
+ggplot() +
+  geom_sf(data = chicago_map, fill = "ivory", colour = "ivory") + 
+  geom_point (data = hbh_df, aes(x = Long, y = Lat))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r site info}
+hbh_df <- hbh_df %>% mutate(desc = paste(`Site`, sep = "\n"))
+
+site_info <- ggplot() +
+  geom_sf(data = chicago_map, fill = "ivory", colour = "ivory") + 
+  geom_point (data = hbh_df, aes(x = Long, y = Lat, text = desc))
+
+ggplotly(site_info, tooltip = "desc")
+
+```
