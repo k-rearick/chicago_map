@@ -1,0 +1,11 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/952949/f0a3cf8f23b54d5994d3442e32c2b9b8
+bundleId: https://api.rpubs.com/api/v1/document/952949/f0a3cf8f23b54d5994d3442e32c2b9b8
+url: http://rpubs.com/krearick/952949
+when: 1665166743.43458
+lastSyncTime: 1665166743.43459

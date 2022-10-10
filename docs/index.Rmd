@@ -10,6 +10,7 @@ library("sf")
 library("ggplot2")
 library ("plotly")
 library ("dplyr")
+library ("readr")
 ```
 
 ```{r mapsetup, echo=FALSE}
@@ -27,6 +28,15 @@ hbh_df$Site <- as.character(hbh_df$Site)
 
 # amend data frame to include name of each site
 hbh_df <- hbh_df %>% mutate(desc = paste(`Site`, sep = "\n"))
+
+# import chicago public health data csv
+chicago_health <- read.csv("public_health_indicators.csv")
+
+# amend public health data to classify wards
+chicago_health <- chicago_health %>% mutate(ward = as.character(`Community.Area`))
+
+# create new map from ward map and public health data
+chicago_health_map <- left_join(chicago_map, chicago_health, by = "ward")
 ```
 
 
@@ -37,4 +47,15 @@ site_info <- ggplot() +
 
 ggplotly(site_info, tooltip = "desc")
 
+```
+
+
+```{r infant mortality map}
+infant_mortality_map <- ggplot() +
+  geom_sf(data = chicago_health_map, aes(fill = Infant.Mortality.Rate)) +
+  scale_fill_continuous(type = "viridis") +
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+
+ggplotly(infant_mortality_map, tooltip = "desc")
+  
 ```
