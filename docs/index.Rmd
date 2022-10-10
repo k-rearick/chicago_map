@@ -15,7 +15,7 @@ library ("readr")
 
 ```{r mapsetup, echo=FALSE}
 # ward boundaries from chicago data portal
-chicago_map <- read_sf("ward_boundaries.geojson")
+chicago_map <- read_sf("community_areas.geojson")
 
 # latitude and longitude of HBH sites
 hbh_data <- read.csv("hbh_locations.csv")
@@ -33,10 +33,10 @@ hbh_df <- hbh_df %>% mutate(desc = paste(`Site`, sep = "\n"))
 chicago_health <- read.csv("public_health_indicators.csv")
 
 # amend public health data to classify wards
-chicago_health <- chicago_health %>% mutate(ward = as.character(`Community.Area`))
+chicago_health <- chicago_health %>% mutate(area_num_1 = as.character(`Community.Area`))
 
-# create new map from ward map and public health data
-chicago_health_map <- left_join(chicago_map, chicago_health, by = "ward")
+# create new map from community areas and public health data
+chicago_health_map <- left_join(chicago_map, chicago_health, by = "area_num_1")
 ```
 
 
