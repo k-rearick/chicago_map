@@ -42,7 +42,7 @@ chicago_health_map <- left_join(chicago_map, chicago_health, by = "area_num_1")
 
 ```{r site info, echo=FALSE, warning=FALSE}
 site_info <- ggplot() +
-  geom_sf(data = chicago_map, fill = "ivory", colour = "ivory") + 
+  geom_sf(data = chicago_map) + 
   geom_point (data = hbh_df, aes(x = Long, y = Lat, text = desc))
 
 ggplotly(site_info, tooltip = "desc")
@@ -57,5 +57,35 @@ infant_mortality_map <- ggplot() +
   geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
 
 ggplotly(infant_mortality_map, tooltip = "desc")
+  
+```
+
+```{r teen birth rate map}
+teen_birth_rate_map <- ggplot() +
+  geom_sf(data = chicago_health_map, aes(fill = Teen.Birth.Rate)) +
+  scale_fill_continuous(type = "viridis") +
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+
+ggplotly(teen_birth_rate_map, tooltip = "desc")
+  
+```
+
+```{r poverty level map}
+poverty_level_map <- ggplot() +
+  geom_sf(data = chicago_health_map, aes(fill = Below.Poverty.Level)) +
+  scale_fill_continuous(type = "viridis") +
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+
+ggplotly(poverty_level_map, tooltip = "desc")
+  
+```
+
+```{r unemployment map}
+unemployment_map <- ggplot() +
+  geom_sf(data = chicago_health_map, aes(fill = Unemployment)) +
+  scale_fill_continuous(type = "viridis") +
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+
+ggplotly(unemployment_map, tooltip = "desc")
   
 ```
