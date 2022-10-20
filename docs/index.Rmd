@@ -42,48 +42,92 @@ chicago_health_map <- left_join(chicago_map, chicago_health, by = "area_num_1")
 ```{r site info, echo=FALSE, warning=FALSE}
 site_info <- ggplot() +
   geom_sf(data = chicago_map) + 
-  geom_point (data = hbh_df, aes(x = Long, y = Lat, text = desc))
+  labs(title = "Chicago Communities") +
+  geom_point (data = hbh_df, aes(x = Long, y = Lat, text = desc)) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
 
-ggplotly(site_info, tooltip = "desc")
+fig_1 <- ggplotly(site_info, tooltip = "desc")
 
+fig_1
 ```
 
-```{r infant mortality map}
+```{r infant mortality map, echo=FALSE, warning=FALSE}
 infant_mortality_map <- ggplot() +
   geom_sf(data = chicago_health_map, aes(fill = Infant.Mortality.Rate)) +
+  labs(title = "Infant Mortality in Chicago", fill = "Infant Mortality Rate") +
   scale_fill_continuous(type = "viridis") +
-  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc)) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
 
-ggplotly(infant_mortality_map, tooltip = "desc")
+fig_2 <- ggplotly(infant_mortality_map, tooltip = "desc")
+
+fig_2
   
 ```
 
-```{r teen birth rate map}
+```{r teen birth rate map, echo=FALSE, warning=FALSE}
 teen_birth_rate_map <- ggplot() +
   geom_sf(data = chicago_health_map, aes(fill = Teen.Birth.Rate)) +
+  labs(title = "Teen Births in Chicago", fill = "Teen Birth Rate") +
   scale_fill_continuous(type = "viridis") +
-  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc)) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
 
-ggplotly(teen_birth_rate_map, tooltip = "desc")
+fig_3 <- ggplotly(teen_birth_rate_map, tooltip = "desc")
+
+fig_3
   
 ```
 
-```{r poverty level map}
+```{r poverty level map, echo=FALSE, warning=FALSE}
 poverty_level_map <- ggplot() +
   geom_sf(data = chicago_health_map, aes(fill = Below.Poverty.Level)) +
+  labs(title = "Poverty in Chicago", fill = "% Below Poverty Level") +
   scale_fill_continuous(type = "viridis") +
-  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc)) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
 
-ggplotly(poverty_level_map, tooltip = "desc")
+fig_4 <- ggplotly(poverty_level_map, tooltip = "desc")
+
+fig_4
   
 ```
 
-```{r unemployment map}
+```{r unemployment map, echo=FALSE, warning=FALSE}
 unemployment_map <- ggplot() +
   geom_sf(data = chicago_health_map, aes(fill = Unemployment)) +
+  labs(title = "Unemployment in Chicago", fill = "Unemployment Rate") +
   scale_fill_continuous(type = "viridis") +
-  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc))
+  geom_point (data = hbh_df, alpha = 8/10, aes(x = Long, y = Lat, text = desc)) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
 
-ggplotly(unemployment_map, tooltip = "desc")
+fig_5 <- ggplotly(unemployment_map, tooltip = "desc")
+
+fig_5
   
 ```
