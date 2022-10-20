@@ -39,7 +39,6 @@ chicago_health <- chicago_health %>% mutate(area_num_1 = as.character(`Community
 chicago_health_map <- left_join(chicago_map, chicago_health, by = "area_num_1")
 ```
 
-
 ```{r site info, echo=FALSE, warning=FALSE}
 site_info <- ggplot() +
   geom_sf(data = chicago_map) + 
@@ -48,7 +47,6 @@ site_info <- ggplot() +
 ggplotly(site_info, tooltip = "desc")
 
 ```
-
 
 ```{r infant mortality map}
 infant_mortality_map <- ggplot() +
